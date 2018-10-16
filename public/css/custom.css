@@ -1,0 +1,17 @@
+/* styling the navbar in navbar.blade.php */
+.nav-link{
+  color: rgb(255,255,255) !important;
+  font-weight: 700;
+  background-color: transparent;
+}
+.bg-breeze{
+  background-color: #438496;
+}
+.navbar-brand{
+  color: rgb(255, 255, 255);
+  font-size: 2em;
+}
+/* blog page */
+.background-blog{
+  background-color: rgba(179, 125, 78, 0.15);
+}
