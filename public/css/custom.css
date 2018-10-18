@@ -1,3 +1,11 @@
+/* under construction image on front page */
+.body-image{
+  background:url("/images/underconstruction.jpg");
+    /* Full height */
+    height: 100%; 
+    width: 100%;
+    background-size: cover;
+}
 /* styling the navbar in navbar.blade.php */
 .nav-link{
   color: rgb(255,255,255) !important;
@@ -15,3 +23,4 @@
 .background-blog{
   background-color: rgba(179, 125, 78, 0.15);
 }
+

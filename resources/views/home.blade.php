@@ -10,13 +10,7 @@
         <!-- File containing all layout/css/js includes -->
         @include('layouts.includes')
     </head>
-    <body>
-        <div class="flex-center position-ref full-height background-blog">
-            <!-- Include the default navbar -->
-            @include('layouts.navbar')
+    <body class="body-image">
 
-            <!-- Test with dummy blog -->
-            @include('layouts.dummyblog')
-        </div>
     </body>
 </html>
