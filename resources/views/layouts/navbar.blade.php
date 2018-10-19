@@ -15,6 +15,7 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
+                <!--
                 @auth
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/home') }}">Home</a>
@@ -44,6 +45,7 @@
                         <a class="nav-link" href="{{ route('register') }}">Register</a>
                     </li>
                 @endauth
+                -->
             </ul>
         </div>
     </div>

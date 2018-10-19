@@ -24,3 +24,8 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+//first pages to allow traffic to page
+Route::get('/qtccrpbb', function () {
+    return view('qtccrpbb');
+});

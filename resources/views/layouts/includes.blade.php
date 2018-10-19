@@ -11,5 +11,11 @@
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
+<!-- Code pretifier -- https://github.com/google/code-prettify -->
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
 <!-- Custom css file -->
 <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
+<!-- Google fonts -->
+<link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
