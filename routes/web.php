@@ -19,8 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-
-
+Route::get('/addPage','ClientPageController@addPage')->name('addPage');
+//Route::get('/dashboard/addPage' ) -> todo, redirect person to the dashboard page with addPage open
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });

@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ setting('site.title') }}</title>
+        <title>{{ setting('site.title') }} Qt, opencv & v4l cross compiling Raspberry Pi or Beagle bone</title>
 
         <!-- File containing all layout/css/js includes -->
         @include('layouts.includes')

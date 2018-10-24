@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-md bg-breeze">
+<nav class="navbar navbar-expand-md bg-breeze sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand navbar-title" href="{{ url('/') }}">
             {{ setting('site.title') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="custom-toggler"><i class="fas fa-bars fa-bars-white"></i></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -15,7 +15,7 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
-                <!--
+                
                 @auth
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/home') }}">Home</a>
@@ -45,7 +45,7 @@
                         <a class="nav-link" href="{{ route('register') }}">Register</a>
                     </li>
                 @endauth
-                -->
+                    
             </ul>
         </div>
     </div>

@@ -8,9 +8,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ setting('site.title') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
     
     <!-- File containing all layout/css/js includes -->
     @include('layouts.includes')
@@ -19,9 +16,7 @@
     <div id="app">
         <!-- Include the default navbar -->
         @include('layouts.navbar')
-        <main class="py-4">
-            @yield('content')
-        </main>
+        @yield('content')
     </div>
 </body>
 </html>
