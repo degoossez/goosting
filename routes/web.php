@@ -19,11 +19,18 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/dashboard/{PageName}', 'DashboardController@dashboardPage')->name('dashboard');
 Route::get('/addPage','ClientPageController@addPage')->name('addPage');
-//Route::get('/dashboard/addPage' ) -> todo, redirect person to the dashboard page with addPage open
+
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+//summernote store route
+Route::post('/dashboard/addPage','ClientPageController@store')->name('summernotePersist');
+ 
+//summernote display route
+Route::get('/dashboard/addPage','ClientPageController@show')->name('summernoteDisplay');
 
 //first pages to allow traffic to page
 Route::get('/qtccrpbb', function () {

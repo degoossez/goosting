@@ -1,13 +1,8 @@
 <!-- Sidebar -->
 <nav id="sidebar">
-    <div align="right">
-        <button type="button" id="sidebarCollapse" class="btn btn-info">
-            <i class="fas fa-align-left"></i>
-        </button>
-    </div>
     <ul class="list-unstyled components">
         <li class="active">
-            <a href="#accountSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <a href="#accountSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle-sidebar">
                 <i class="fas fa-account"></i>
                 Account
             </a>
@@ -24,7 +19,7 @@
             </ul>
         </li>
         <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle-sidebar">
                 <i class="fas fa-copy"></i>
                 My Pages
             </a>

@@ -23,6 +23,21 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        return view('dashboard',['page'=> view('dashboard.dashboardPage')]);
+    }
+    /**
+     * Show the application dashboard with page specified.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dashboardPage($pageName)
+    {
+        if($pageName==""){
+            return view('dashboard',['page'=> view('dashboard.dashboardPage')]);
+        }
+        else{
+            return view('dashboard',['page'=> view('dashboard.dashboardAddPage')]);
+        }
+        
     }
 }
