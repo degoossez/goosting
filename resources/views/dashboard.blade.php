@@ -10,18 +10,14 @@
     @include('layouts.sidebar')
     <div class="container-fluid" id="dashboardContent">
             {!! $page !!}
-            @if( ! empty($submittedContent))
-                {!! $submittedContent !!}
-            @endif
     </div>
 </div>
 
 
 <script>
-function loadAddPage(){
+function loadAddPage(){ //function called from the layouts.sidebar.blade.php file when clicked on add new page button
     $("#dashboardContent" ).load("{{ route('addPage') }}", function() {
         history.pushState({}, '', '/dashboard/addPage');
-        alert( "Load was performed." );
     });
 }
 </script>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientPageController extends Controller
 {
@@ -42,7 +43,9 @@ class ClientPageController extends Controller
     public function store(Request $request)
     {
         $detail=$request->summernoteInput;
- 
+        $title=$request->pagetitle;
+        $summary=$request->summary;
+        
         $dom = new \domdocument();
         $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
  
@@ -67,11 +70,20 @@ class ClientPageController extends Controller
         }
  
         $detail = $dom->savehtml();
+        //Save the page in the database
         $summernote = new \App\Userpage;
         $summernote->content = $detail;
+        $summernote->title = $title;
+        $summernote->summary = $summary;
         $summernote->save();
         $data_id = $summernote->id;
-        return view('dashboard',['page'=> view('dashboard.dashboardAddPage',compact('summernote'),['data_id'=> $data_id]),'submittedContent'=>view('dashboard.dashboardShowPage',compact('summernote'))]);
+        //link the new page with the user
+        $userpagelink = new \App\userpagesuser;
+        $userpagelink->userpages_id = $data_id;
+        $userpagelink->user_id = Auth::user()->id;
+        $userpagelink->save();
+
+        return redirect('dashboard/editpage/' . $data_id);
     }
     /**
      * show the addPage html.
@@ -81,5 +93,57 @@ class ClientPageController extends Controller
     public function show()
     {
 
+    }
+    /**
+     * Send the editPage html IF the correct user is accessing it
+     * default value for new is false
+     * @return \Illuminate\Http\Response
+     */
+    public function editPage($page_id)
+    {  
+        $userpagelink = \App\userpagesuser::where('userpages_id', $page_id)->first(); // model or null
+        if (!$userpagelink) {
+            // User has no page with this ID linked to it
+            return redirect('dashboard'); //TODO make an error displaying on the page in a top bar style (see bootstrap)
+        }
+        else{
+            $pageInfo = \App\Userpage::where('id',$page_id)->get();
+            if(!$pageInfo){
+                return redirect('dashboard'); //TODO make an error displaying on the page in a top bar style (see bootstrap)
+            }
+            else{
+                $pageData = $pageInfo[0];
+                return view('dashboard.dashboardEditPage')->with(compact('pageData')); 
+            }
+        }        
+    }
+    /**
+     * Get all pages created by the user and send it to the sidebar in html list items (li)
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function loadPagesList()
+    {
+        $htmlresult = "<li>
+        <a href='#' onclick='loadAddPage();'>Create new page<i class='fas fa-plus-circle icon-right'></i></a>
+        
+        </li>";
+        $userPages = \App\userpagesuser::where('user_id', Auth::user()->id)->select('userpages_id')->get(); // model or null
+        if (!$userPages) {
+            // User has no page with this ID linked to it
+            return ""; //empty list so return an empty string
+        }
+        else{
+            
+            foreach($userPages as $up){
+                $pageInfo = \App\Userpage::where('id',$up->userpages_id)->select('title')->get();
+                $htmlresult .= '
+                <li>
+                <a href="/dashboard/editpage/'.$up->userpages_id.'" id="editPage'.$up->userpages_id.'">'.$pageInfo[0]->title.'<i class="far fa-edit icon-right"></i></a>
+                </li>';
+            }
+            return $htmlresult;
+        }
+        
     }
 }

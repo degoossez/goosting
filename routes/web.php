@@ -18,9 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Dashboard routes
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/dashboard/{PageName}', 'DashboardController@dashboardPage')->name('dashboard');
-Route::get('/addPage','ClientPageController@addPage')->name('addPage');
+Route::get('/dashboard/editpage/{PageId}','ClientPageController@editPage')->name('viewPage');
+//Ajax routes for dashboard
+Route::get('addPage','ClientPageController@addPage')->name('addPage')->middleware('ajax');
+Route::get('loadPagesList','ClientPageController@loadPagesList')->name('loadPagesList')->middleware('ajax');
+
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
@@ -28,7 +34,6 @@ Route::group(['prefix' => 'admin'], function () {
 
 //summernote store route
 Route::post('/dashboard/addPage','ClientPageController@store')->name('summernotePersist');
- 
 //summernote display route
 Route::get('/dashboard/addPage','ClientPageController@show')->name('summernoteDisplay');
 
