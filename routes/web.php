@@ -34,6 +34,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 //summernote store route
 Route::post('/dashboard/addPage','ClientPageController@store')->name('summernotePersist');
+//summernote update route
+Route::post('/dashboard/editPage','ClientPageController@update')->name('summernoteUpdate');
 //summernote display route
 Route::get('/dashboard/addPage','ClientPageController@show')->name('summernoteDisplay');
 

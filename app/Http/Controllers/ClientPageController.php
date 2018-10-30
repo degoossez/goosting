@@ -86,6 +86,56 @@ class ClientPageController extends Controller
         return redirect('dashboard/editpage/' . $data_id);
     }
     /**
+     * update the addPage html.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $page_id=$request->page_id;
+        $userpagelink = \App\userpagesuser::where('userpages_id', $page_id)->first(); // model or null to verify if user is owner of this page
+        if (!$userpagelink) {
+            // User has no page with this ID linked to it
+            return redirect('dashboard'); //TODO make an error displaying on the page in a top bar style (see bootstrap)
+        }
+        else{
+            $detail=$request->summernoteInput;
+            $title=$request->pagetitle;
+            $summary=$request->summary;
+            
+            $dom = new \domdocument();
+            $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+     
+            $images = $dom->getelementsbytagname('img');
+     
+            foreach($images as $k => $img){
+                $data = $img->getattribute('src');
+     
+                list($type, $data) = explode(';', $data);
+                list(, $data)      = explode(',', $data);
+     
+                $data = base64_decode($data);
+                $image_name= time().$k.'.png';
+                $path = public_path() .'/'. $image_name;
+                file_put_contents($path, $data);
+    
+                //TODO: find clean solution for accessing images
+                $image_name= "/../".$image_name;
+     
+                $img->removeattribute('src');
+                $img->setattribute('src', $image_name);
+            }
+     
+            $detail = $dom->savehtml();
+    
+            $userpage = new \App\Userpage;
+            $userpage->update_page($page_id,$detail,$title,$summary);
+    
+            return redirect('dashboard/editpage/' . $page_id);
+        }                
+
+    }
+    /**
      * show the addPage html.
      *
      * @return \Illuminate\Http\Response
@@ -101,7 +151,8 @@ class ClientPageController extends Controller
      */
     public function editPage($page_id)
     {  
-        $userpagelink = \App\userpagesuser::where('userpages_id', $page_id)->first(); // model or null
+
+        $userpagelink = \App\userpagesuser::where('userpages_id', $page_id)->first(); // model or null to verify if user is owner of this page
         if (!$userpagelink) {
             // User has no page with this ID linked to it
             return redirect('dashboard'); //TODO make an error displaying on the page in a top bar style (see bootstrap)

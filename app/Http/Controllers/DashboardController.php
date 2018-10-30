@@ -35,8 +35,11 @@ class DashboardController extends Controller
         if($pageName==""){
             return view('dashboard',['page'=> view('dashboard.dashboardPage')]);
         }
-        else{
+        elseif($pageName=="addPage"){
             return view('dashboard',['page'=> view('dashboard.dashboardAddPage')]);
+        }
+        else{
+            return redirect('/dashboard');
         }
         
     }
