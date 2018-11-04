@@ -1,0 +1,24 @@
+/* styling the navbar in navbar.blade.php */
+.nav-link{
+    color: rgb(255,255,255) !important;
+    font-weight: 700;
+    background-color: transparent;
+  }
+  .bg-breeze{
+    background-color: #438496;
+  }
+  .navbar-brand{
+    color: rgb(255, 255, 255);
+    font-size: 2em;
+  }
+  .fa-bars-white{
+    color: rgb(255, 255, 255);
+  }
+  .navbar-title{
+    font-family: 'Fredoka One', cursive;
+    text-decoration: underline;
+  }
+  .navbar-title:hover{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+  }

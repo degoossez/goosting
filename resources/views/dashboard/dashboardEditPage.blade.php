@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <form action="{{route('summernoteUpdate')}}" method="POST" id="editPageForm">
+        <form action="{{route('updateOrPublish')}}" method="POST" id="editPageForm">
             {{ csrf_field() }}
             <input type="hidden" value="{!! $pageData->id !!}" name="page_id">
             <div class="container">
@@ -52,7 +52,8 @@
             <!-- Select tags in multi select with https://select2.org/ -->
             
             <br>
-            <button type="submit" class="btn btn-info">Update</button>
+            <button type="submit" class="btn btn-info" name="submitButton" value="update">Update</button>
+            <button type="submit" class="btn btn-info" name="submitButton" value="publish">Publish</button>
         </form>
     </div>
 </div>

@@ -26,4 +26,12 @@ class Userpage extends Model
 
         $current_data->save();
     }
+    /**
+     * Set the status of the page as published
+     */
+    public function publish_page($page_id){
+        $userpage = Userpage::find($page_id);
+        $userpage->status = "published";
+        $userpage->save();
+    }
 }

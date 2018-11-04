@@ -23,9 +23,15 @@
                     <div class="row">
                         <div class="col-12 text-center">
                             <!-- <button class="button-gradiant-red">Start for free!</button> -->
-                            <form action="{{ route('register') }}">
-                                <input type="submit" class="btn button-gradiant-red" value="Start for free!" />
-                            </form>
+                            @auth
+                                <form action="{{ url('/dashboard') }}">
+                                    <input type="submit" class="btn button-gradiant-red" value="Go to dashboard" />
+                                </form>
+                            @else
+                                <form action="{{ route('register') }}">
+                                    <input type="submit" class="btn button-gradiant-red" value="Start for free!" />
+                                </form>
+                            @endauth
                         </div>
                     </div>
             </header>
@@ -73,9 +79,15 @@
                                 <li>you money from the start </li>
                                 <li>using Google Adsense!</li>
                             </ul>
-                            <form action="{{ route('register') }}">
-                                <input type="submit" class="btn btn-lg btn-block button-gradiant-red" value="Start for free" />
-                            </form>
+                            @auth
+                                <form action="{{ url('/dashboard') }}">
+                                    <input type="submit" class="btn button-gradiant-red" value="Go to dashboard" />
+                                </form>
+                            @else
+                                <form action="{{ route('register') }}">
+                                    <input type="submit" class="btn button-gradiant-red" value="Start for free!" />
+                                </form>
+                            @endauth
                         </div>
                     </div>
                 </div>

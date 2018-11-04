@@ -26,7 +26,10 @@ Route::get('/dashboard/editpage/{PageId}','ClientPageController@editPage')->name
 //Ajax routes for dashboard
 Route::get('addPage','ClientPageController@addPage')->name('addPage')->middleware('ajax');
 Route::get('loadPagesList','ClientPageController@loadPagesList')->name('loadPagesList')->middleware('ajax');
+Route::get('publishPage','ClientPageController@publishUserPage')->name('publishUserPage')->middleware('ajax');
 
+//TODO: Browse routes
+Route::get('/browse/{userName}/{pageName}','BrowseController@displayPage')->name('displayUserPage');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
@@ -35,7 +38,7 @@ Route::group(['prefix' => 'admin'], function () {
 //summernote store route
 Route::post('/dashboard/addPage','ClientPageController@store')->name('summernotePersist');
 //summernote update route
-Route::post('/dashboard/editPage','ClientPageController@update')->name('summernoteUpdate');
+Route::post('/dashboard/editPage','ClientPageController@updateOrPublish')->name('updateOrPublish');
 //summernote display route
 Route::get('/dashboard/addPage','ClientPageController@show')->name('summernoteDisplay');
 

@@ -90,49 +90,58 @@ class ClientPageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function updateOrPublish(Request $request)
     {
-        $page_id=$request->page_id;
-        $userpagelink = \App\userpagesuser::where('userpages_id', $page_id)->first(); // model or null to verify if user is owner of this page
-        if (!$userpagelink) {
-            // User has no page with this ID linked to it
-            return redirect('dashboard'); //TODO make an error displaying on the page in a top bar style (see bootstrap)
-        }
-        else{
-            $detail=$request->summernoteInput;
-            $title=$request->pagetitle;
-            $summary=$request->summary;
-            
-            $dom = new \domdocument();
-            $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-     
-            $images = $dom->getelementsbytagname('img');
-     
-            foreach($images as $k => $img){
-                $data = $img->getattribute('src');
-     
-                list($type, $data) = explode(';', $data);
-                list(, $data)      = explode(',', $data);
-     
-                $data = base64_decode($data);
-                $image_name= time().$k.'.png';
-                $path = public_path() .'/'. $image_name;
-                file_put_contents($path, $data);
-    
-                //TODO: find clean solution for accessing images
-                $image_name= "/../".$image_name;
-     
-                $img->removeattribute('src');
-                $img->setattribute('src', $image_name);
+        if($request->submitButton == "update"){
+            $page_id=$request->page_id;
+            $userpagelink = \App\userpagesuser::where('userpages_id', $page_id)->first(); // model or null to verify if user is owner of this page
+            if (!$userpagelink) {
+                // User has no page with this ID linked to it
+                return redirect('dashboard'); //TODO make an error displaying on the page in a top bar style (see bootstrap)
             }
-     
-            $detail = $dom->savehtml();
-    
+            else{
+                $detail=$request->summernoteInput;
+                $title=$request->pagetitle;
+                $summary=$request->summary;
+                
+                $dom = new \domdocument();
+                $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+         
+                $images = $dom->getelementsbytagname('img');
+         
+                foreach($images as $k => $img){
+                    $data = $img->getattribute('src');
+         
+                    list($type, $data) = explode(';', $data);
+                    list(, $data)      = explode(',', $data);
+         
+                    $data = base64_decode($data);
+                    $image_name= time().$k.'.png';
+                    $path = public_path() .'/'. $image_name;
+                    file_put_contents($path, $data);
+        
+                    //TODO: find clean solution for accessing images
+                    $image_name= "/../".$image_name;
+         
+                    $img->removeattribute('src');
+                    $img->setattribute('src', $image_name);
+                }
+         
+                $detail = $dom->savehtml();
+        
+                $userpage = new \App\Userpage;
+                $userpage->update_page($page_id,$detail,$title,$summary);
+        
+                return redirect('dashboard/editpage/' . $page_id);
+            }     
+        }
+        elseif($request->submitButton == "publish"){
             $userpage = new \App\Userpage;
-            $userpage->update_page($page_id,$detail,$title,$summary);
-    
-            return redirect('dashboard/editpage/' . $page_id);
-        }                
+            $userpage->publish_page($request->page_id);
+
+            return redirect('dashboard/editpage/' . $request->page_id);
+        }
+           
 
     }
     /**
@@ -142,7 +151,7 @@ class ClientPageController extends Controller
      */
     public function show()
     {
-
+        
     }
     /**
      * Send the editPage html IF the correct user is accessing it
@@ -167,6 +176,15 @@ class ClientPageController extends Controller
                 return view('dashboard.dashboardEditPage')->with(compact('pageData')); 
             }
         }        
+    }
+    /**
+     * Publish the page to a live URL "websiteurl"/browse/{username}/{pageTitle}
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function publishUserPage(Request $request)
+    {
+
     }
     /**
      * Get all pages created by the user and send it to the sidebar in html list items (li)
