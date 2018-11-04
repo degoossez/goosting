@@ -43,8 +43,8 @@ class ClientPageController extends Controller
     public function store(Request $request)
     {
         $detail=$request->summernoteInput;
-        $title=$request->pagetitle;
-        $summary=$request->summary;
+        $title=$request->summernoteTitle;
+        $summary=$request->summernoteSummary;
         
         $dom = new \domdocument();
         $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
@@ -75,6 +75,7 @@ class ClientPageController extends Controller
         $summernote->content = $detail;
         $summernote->title = $title;
         $summernote->summary = $summary;
+        $summernote->status = "private";
         $summernote->save();
         $data_id = $summernote->id;
         //link the new page with the user
@@ -101,7 +102,7 @@ class ClientPageController extends Controller
             }
             else{
                 $detail=$request->summernoteInput;
-                $title=$request->pagetitle;
+                $title=$request->summernoteTitle;
                 $summary=$request->summary;
                 
                 $dom = new \domdocument();

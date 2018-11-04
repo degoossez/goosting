@@ -66,3 +66,6 @@ header h2 {
   font-family: 'Carter One', cursive;
   font-size: 1.8em;
 }
+.background-blog{
+  background-color: rgba(179, 125, 78, 0.35);
+}

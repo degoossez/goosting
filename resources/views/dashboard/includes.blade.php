@@ -20,5 +20,8 @@
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
 <!-- Custom css file -->
-<link href="{{ asset('css/browse.css') }}" rel="stylesheet">
+<link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
 <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
+
+<!-- css file for dashboard sidebar -->
+<link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">

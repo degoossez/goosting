@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('dashboard.dashboard')
 
 @section('content')
 
@@ -7,7 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
 
 <div class="wrapper">
-    @include('layouts.sidebar')
+    @include('dashboard.sidebar')
     <div class="container-fluid" id="dashboardContent">
             {!! $page !!}
     </div>
