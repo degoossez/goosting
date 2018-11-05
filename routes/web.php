@@ -30,6 +30,8 @@ Route::get('publishPage','ClientPageController@publishUserPage')->name('publishU
 
 //TODO: Browse routes
 Route::get('/browse/{userName}/{pageName}','BrowseController@displayPage')->name('displayUserPage');
+//Preview routes
+Route::get('/preview/{userName}/{pageName}','ClientPageController@showPreview')->name('displayPreviewPage');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
