@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RemoveNicknameFromUsers extends Migration
+class CreateThemesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class RemoveNicknameFromUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('nickname');
+        Schema::create('themes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('userid');
+            $table->string('filename');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class RemoveNicknameFromUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('nickname');
-        });
+        Schema::dropIfExists('themes');
     }
 }

@@ -14,7 +14,18 @@
             </a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
                 @if( ! empty($userpageslist))
-                    {!! $userpageslist !!}
+                {!! $userpageslist !!}
+                @endif
+            </ul>
+        </li>
+        <li>
+            <a href="#themesSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle-sidebar" onclick="loadThemesList();">
+                <i class="fas fa-paint-brush"></i>
+                My Themes
+            </a>
+            <ul class="collapse list-unstyled" id="themesSubmenu">
+                @if( ! empty($userthemeslist))
+                {!! $userthemeslist !!}
                 @endif
             </ul>
         </li>
@@ -32,9 +43,16 @@
         $('#sidebarCollapse').on('click', function () {
             $('#sidebar').toggleClass('active');
         }); 
+        loadPagesList();
+        loadThemesList();
     });
     function loadPagesList(){
         $("#pageSubmenu").load("{{ route('loadPagesList') }}", function() {
+            //No callback function needed
+        });
+    }
+    function loadThemesList(){
+        $("#themesSubmenu").load("{{ route('loadThemesList') }}", function() {
             //No callback function needed
         });
     }

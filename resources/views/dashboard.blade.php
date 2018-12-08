@@ -20,6 +20,11 @@ function loadAddPage(){ //function called from the layouts.sidebar.blade.php fil
         history.pushState({}, '', '/dashboard/addPage');
     });
 }
+function loadAddTheme(){
+        $("#dashboardContent" ).load("{{ route('addTheme') }}", function() {
+            history.pushState({}, '', '/dashboard/addTheme');
+        });
+    }    
 </script>
 
 @endsection

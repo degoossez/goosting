@@ -22,10 +22,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Dashboard routes
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/dashboard/{PageName}', 'DashboardController@dashboardPage')->name('dashboard');
-Route::get('/dashboard/editpage/{PageId}','ClientPageController@editPage')->name('viewPage');
+Route::get('/dashboard/editpage/{PageId}','ClientPageController@editPage')->name('editPage');
+Route::get('/dashboard/edittheme/{ThemeId}','ThemeController@editTheme')->name('editTheme');
+Route::post('/dashboard/edittheme','ThemeController@store')->name('saveTheme');
 //Ajax routes for dashboard
 Route::get('addPage','ClientPageController@addPage')->name('addPage')->middleware('ajax');
+Route::get('addTheme','ThemeController@addTheme')->name('addTheme')->middleware('ajax');
 Route::get('loadPagesList','ClientPageController@loadPagesList')->name('loadPagesList')->middleware('ajax');
+Route::get('loadThemesList','ThemeController@loadThemesList')->name('loadThemesList')->middleware('ajax');
+Route::get('getAllThemes','ThemeController@getAllThemes')->name('getAllThemes');
 Route::get('publishPage','ClientPageController@publishUserPage')->name('publishUserPage')->middleware('ajax');
 
 //TODO: Browse routes
@@ -48,3 +53,7 @@ Route::get('/dashboard/addPage','ClientPageController@show')->name('summernoteDi
 Route::get('/qtccrpbb', function () {
     return view('qtccrpbb');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

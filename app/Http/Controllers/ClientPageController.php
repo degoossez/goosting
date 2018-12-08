@@ -42,8 +42,8 @@ class ClientPageController extends Controller
     public function store(Request $request)
     {
         $detail=$request->summernoteInput;
-        $title=$request->summernoteTitle;
-        $summary=$request->summernoteSummary;
+        $title=$request->pageTitle;
+        $summary=$request->summary;
         
         $dom = new \domdocument();
         $dom->loadHtml($detail, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
@@ -101,7 +101,7 @@ class ClientPageController extends Controller
             }
             else{
                 $detail=$request->summernoteInput;
-                $title=$request->summernoteTitle;
+                $title=$request->pageTitle;
                 $summary=$request->summary;
                 
                 $dom = new \domdocument();
